@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getDatabaseConfing } from './config/db.config';
 import { MongooseModule } from '@nestjs/mongoose';
+import configuration from './config/configuration';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -18,6 +20,12 @@ import { MongooseModule } from '@nestjs/mongoose';
     MongooseModule.forRootAsync({
       useFactory: getDatabaseConfing,
       inject: [ConfigService],
+    }),
+     // Cache module
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 60,
+      max: 100,
     }),
   ],
   controllers: [AppController],

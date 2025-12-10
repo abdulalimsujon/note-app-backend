@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { MongooseModuleOptions } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
@@ -16,7 +17,7 @@ export const getDatabaseConfing = (
     onConnectionCreate(connection: Connection) {
       Logger.debug('Database connected successfully');
       connection.on('open', () => {
-        Looger.debug('Database connected successfully');
+        Logger.debug('Database connected successfully');
       });
     },
   };
