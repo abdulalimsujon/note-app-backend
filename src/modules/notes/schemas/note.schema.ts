@@ -1,10 +1,13 @@
-import { Prop, SchemaFactory } from "@nestjs/mongoose";
-import { Types } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
 
-export type noteDocument = notes & Document;
+export type NoteDocument = Note & Document;
 
-export class notes {
-    
+@Schema({
+  collection: 'note',
+  timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
+})
+export class Note {
   @Prop({ required: true })
   title: string;
 
@@ -24,4 +27,4 @@ export class notes {
   isPrivate: boolean;
 }
 
-export const noteSchema = SchemaFactory.createForClass(notes);
+export const NoteSchema = SchemaFactory.createForClass(Note);
