@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
+import { NotePriority } from '../enums/NotePriority.enum';
 
 export type NoteDocument = Note & Document;
 
@@ -14,17 +15,21 @@ export class Note {
   @Prop({ required: true })
   content: string;
 
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  ownerId: string;
+  @Prop({ type: String })
+  tags: string;
 
-  @Prop({ type: [Types.ObjectId], ref: 'User', default: [] })
-  sharedWith: string[];
-
-  @Prop({ type: [String], default: [] })
-  tags: string[];
-
-  @Prop({ default: true })
-  isPrivate: boolean;
+  @Prop({
+    type: String,
+    enum: Object.values(NotePriority),
+    default: NotePriority.LOW,
+  })
+  @Prop({
+    type: Boolean,
+    default: false,
+  })
+  priority: NotePriority;
+  @Prop({ type: Boolean, default: false })
+  isDeleted: boolean;
 }
 
 export const NoteSchema = SchemaFactory.createForClass(Note);

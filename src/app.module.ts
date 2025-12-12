@@ -6,6 +6,7 @@ import { getDatabaseConfing } from './config/db.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import configuration from './config/configuration';
 import { CacheModule } from '@nestjs/cache-manager';
+import { NoteModule } from './modules/note/note.module';
 
 @Module({
   imports: [
@@ -21,12 +22,13 @@ import { CacheModule } from '@nestjs/cache-manager';
       useFactory: getDatabaseConfing,
       inject: [ConfigService],
     }),
-     // Cache module
+    // Cache module
     CacheModule.register({
       isGlobal: true,
       ttl: 60,
       max: 100,
     }),
+    NoteModule,
   ],
   controllers: [AppController],
   providers: [AppService],
