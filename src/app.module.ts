@@ -31,6 +31,7 @@ import { UserModule } from './modules/users/user.module';
       ttl: 60,
       max: 100,
     }),
+
     AuthModule,
     NoteModule,
     UserModule,

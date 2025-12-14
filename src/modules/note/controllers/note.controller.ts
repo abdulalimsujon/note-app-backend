@@ -9,16 +9,27 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { NoteService } from '../services/note.service';
 import { CreateNoteDto } from '../dto/create-note-dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { Note } from '../schemas/note.schema';
 import { UpdateNoteDto } from '../dto/update-dto';
 import { GetNotesDto } from '../dto/get-note-dto';
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @ApiTags('Note')
+@ApiBearerAuth('JWT')
 @Controller('api/notes')
+@UseGuards(JwtAuthGuard)
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
 

@@ -1,16 +1,15 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
-
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 import { User, UserSchema } from '../users/schemas/user.schema';
+import { UserModule } from '../users/user.module';
 import { AuthController } from './controller/auth.controller';
 import { AuthService } from './services/auth.services';
 import { UserRepository } from './repository/auth.repository';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from 'src/common/strategy/jwt.strategy';
 import { LocalStrategy } from 'src/common/strategy/local.strategy';
-import { UserModule } from '../users/user.module';
-import { config } from 'process';
 
 @Module({
   imports: [
@@ -20,14 +19,14 @@ import { config } from 'process';
     UserModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        secret: config.get<string>('JWT_SECRET'),
-        signOptions: { expiresIn: '1d' },
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>('jwt.secret'), // now works
+        signOptions: { expiresIn: '1h' },
       }),
     }),
   ],
   controllers: [AuthController],
-  providers: [UserRepository, AuthService, LocalStrategy],
+  providers: [AuthService, UserRepository, LocalStrategy, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

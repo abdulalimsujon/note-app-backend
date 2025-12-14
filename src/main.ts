@@ -62,6 +62,15 @@ async function bootstrap() {
       .setDescription('API documentation for the Note App')
       .setVersion('1.0')
       .addTag('note')
+      .addBearerAuth(
+        {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+          in: 'header',
+        },
+        'JWT-auth',
+      )
       .build();
 
     const document = SwaggerModule.createDocument(app, swaggerConfig);
