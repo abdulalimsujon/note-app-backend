@@ -1,4 +1,11 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -11,8 +18,9 @@ import {
 import { LoginDto } from '../dto/login.dto';
 import { AuthService } from '../services/auth.services';
 import { RegisterDto } from '../dto/register.dto';
+import { AuthGuard } from '@nestjs/passport';
 
-@ApiTags('AUTH')
+@ApiTags('Auth')
 @Controller('api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -39,6 +47,7 @@ export class AuthController {
     description: 'Invalid email or password',
   })
   @ApiBadRequestResponse({ description: 'Validation failed' })
+  @UseGuards(AuthGuard('local'))
   async login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }

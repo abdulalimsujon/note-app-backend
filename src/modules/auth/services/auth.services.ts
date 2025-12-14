@@ -81,4 +81,19 @@ export class AuthService {
       },
     };
   }
+
+  async validateUser(email: string, pass: string) {
+    const user = await this.userRepository.findOne({
+      filters: { email },
+      useLean: false,
+    });
+
+    if (!user) return null;
+
+    const isMatch = await bcrypt.compare(pass, user.password);
+    if (!isMatch) return null;
+
+    const { password, ...result } = user.toObject();
+    return result;
+  }
 }

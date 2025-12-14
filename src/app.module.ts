@@ -8,6 +8,7 @@ import configuration from './config/configuration';
 import { CacheModule } from '@nestjs/cache-manager';
 import { NoteModule } from './modules/note/note.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/users/user.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { AuthModule } from './modules/auth/auth.module';
     }),
     AuthModule,
     NoteModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
