@@ -47,7 +47,6 @@ export class AuthController {
     description: 'Invalid email or password',
   })
   @ApiBadRequestResponse({ description: 'Validation failed' })
-  @UseGuards(AuthGuard('local'))
   async login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
