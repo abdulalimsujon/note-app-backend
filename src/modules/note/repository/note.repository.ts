@@ -8,6 +8,7 @@ import { BaseRepository } from 'src/common/repository/base.repository';
 export class NoteRepository extends BaseRepository<NoteDocument> {
   constructor(
     @InjectModel(Note.name) private readonly NoteModel: Model<NoteDocument>,
+    // It tells NestJS to inject the Mongoose model for the Note schema into this property.
   ) {
     super(NoteModel);
   }

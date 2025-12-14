@@ -9,6 +9,7 @@ import { NoteController } from './controllers/note.controller';
 
 @Module({
   imports: [
+    // MongooseModule.forFeature() is a NestJS helper to define which Mongoose schemas/models are registered in a specific module.It tells NestJS which collections/models this module can use via dependency injection.
     MongooseModule.forFeature([{ name: Note.name, schema: NoteSchema }]),
     ConfigModule,
   ],

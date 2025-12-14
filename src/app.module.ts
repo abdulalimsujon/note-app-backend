@@ -12,6 +12,7 @@ import { AuthModule } from './modules/auth/auth.module';
 @Module({
   imports: [
     //config module
+    // ConfigModule.forRoot() bootstraps the configuration system and makes your environment variables and custom configuration available globally. After this, you can inject ConfigService anywhere in your application
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
