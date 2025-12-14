@@ -15,6 +15,7 @@ import { CreateNoteDto } from '../dto/create-note-dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { Note } from '../schemas/note.schema';
 import { UpdateNoteDto } from '../dto/update-dto';
+import { GetNotesDto } from '../dto/get-note-dto';
 
 @ApiTags('Note')
 @Controller('api/notes')
@@ -36,15 +37,7 @@ export class NoteController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get all notes' })
-  async getAllNotes(
-    @Query()
-    query: {
-      filter?: any;
-      page?: string;
-      length?: string;
-      sort?: string;
-    },
-  ) {
+  async getAllNotes(@Query() query: GetNotesDto) {
     return this.noteService.getAllNotes(query);
   }
 

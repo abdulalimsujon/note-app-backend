@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import configuration from './config/configuration';
 import { CacheModule } from '@nestjs/cache-manager';
 import { NoteModule } from './modules/note/note.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { NoteModule } from './modules/note/note.module';
       ttl: 60,
       max: 100,
     }),
+    AuthModule,
     NoteModule,
   ],
   controllers: [AppController],

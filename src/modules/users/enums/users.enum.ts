@@ -1,4 +1,4 @@
-export enum OtpType {
+export enum UserType {
   ADMIN = 'ADMIN',
   USER = 'USER',
 }

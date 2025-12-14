@@ -1,18 +1,15 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateNoteDto } from '../dto/create-note-dto';
 import { NoteRepository } from '../repository/note.repository';
-import { NoteDocument } from '../schemas/note.schema';
 import { UpdateNoteDto } from '../dto/update-dto';
 
 @Injectable()
 export class NoteService {
-  private readonly logger = new Logger(NoteService.name);
-
   constructor(private readonly noteRepository: NoteRepository) {}
 
   async createNote(dto: CreateNoteDto) {
     const note = await this.noteRepository.create(dto);
-    this.logger.log(`Note created with ID: ${note['_id']}`);
+    Logger.log(`Note created with ID: ${note['_id']}`);
     return { success: true, message: 'Note created successfully', data: note };
   }
 
