@@ -19,16 +19,20 @@ import {
   ApiResponse,
   ApiBody,
   ApiBearerAuth,
+  ApiSecurity,
 } from '@nestjs/swagger';
 import { Note } from '../schemas/note.schema';
 import { UpdateNoteDto } from '../dto/update-dto';
 import { GetNotesDto } from '../dto/get-note-dto';
 import { AuthGuard } from '@nestjs/passport';
+import { UserType } from 'src/modules/users/enums/users.enum';
+import { Roles } from 'src/common/decorator/role.decorator';
+import { RoleGuard } from 'src/guard/role.guard';
 
 @ApiTags('Note')
-@ApiBearerAuth('JWT')
-@Controller('api/notes')
+@ApiBearerAuth('access-token')
 @UseGuards(AuthGuard('jwt'))
+@Controller('api/notes')
 export class NoteController {
   constructor(private readonly noteService: NoteService) {}
 
@@ -43,7 +47,8 @@ export class NoteController {
   async createNote(@Body() dto: CreateNoteDto) {
     return this.noteService.createNote(dto);
   }
-
+  @UseGuards(AuthGuard('jwt'), RoleGuard)
+  @Roles(UserType.ADMIN)
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get all notes' })
