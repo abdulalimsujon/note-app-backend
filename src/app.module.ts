@@ -9,6 +9,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { NoteModule } from './modules/note/note.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/users/user.module';
+import { KafkaModule } from './infrastructure/kafka/kafka.module';
 
 @Module({
   imports: [
@@ -32,6 +33,8 @@ import { UserModule } from './modules/users/user.module';
       max: 100,
     }),
 
+    // Infrastructure Modules
+    KafkaModule,
     AuthModule,
     NoteModule,
     UserModule,

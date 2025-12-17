@@ -17,12 +17,9 @@ import { LocalStrategy } from 'src/common/strategy/local.strategy';
     PassportModule.register({ defaultStrategy: 'jwt' }),
     ConfigModule,
     UserModule,
-    JwtModule.registerAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.get<string>('jwt.secret'), // now works
-        signOptions: { expiresIn: '1h' },
-      }),
+    JwtModule.register({
+      secret: 'dalgjdaljgl;ak', // hardcoded secret
+      signOptions: { expiresIn: '1h' },
     }),
   ],
   controllers: [AuthController],

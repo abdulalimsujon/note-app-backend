@@ -4,4 +4,10 @@ export default () => ({
   jwt: {
     secret: process.env.JWT_SECRET,
   },
+  kafka: {
+    clientId: process.env.KAFKA_CLIENT_ID || 'billing-service',
+    brokers: process.env.KAFKA_BROKERS
+      ? process.env.KAFKA_BROKERS.split(',')
+      : ['localhost:9092'],
+  },
 });
