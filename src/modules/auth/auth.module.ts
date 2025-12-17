@@ -14,12 +14,20 @@ import { LocalStrategy } from 'src/common/strategy/local.strategy';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-    PassportModule.register({ defaultStrategy: 'jwt' }),
     ConfigModule,
     UserModule,
+<<<<<<< HEAD
     JwtModule.register({
       secret: 'dalgjdaljgl;ak', // hardcoded secret
       signOptions: { expiresIn: '1h' },
+=======
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '1h' },
+      }),
+>>>>>>> 022c2a5995ed9942dfa6c311e6e03c646ca5a1bb
     }),
   ],
   controllers: [AuthController],
