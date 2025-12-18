@@ -9,7 +9,6 @@ import { Kafka, Producer } from 'kafkajs';
 
 @Injectable()
 export class KafkaService implements OnModuleInit, OnModuleDestroy {
-  private readonly logger = new Logger(KafkaService.name);
   private kafka: Kafka;
   private producer: Producer;
 
@@ -36,9 +35,9 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
   async onModuleInit() {
     try {
       await this.producer.connect();
-      this.logger.log('✅ Kafka producer connected successfully');
+      Logger.log('✅ Kafka producer connected successfully');
     } catch (error) {
-      this.logger.error('❌ Failed to connect Kafka producer', error);
+      Logger.error('❌ Failed to connect Kafka producer', error);
       throw error;
     }
   }
@@ -46,9 +45,9 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
   async onModuleDestroy() {
     try {
       await this.producer.disconnect();
-      this.logger.log('⛔ Kafka producer disconnected');
+      Logger.log('⛔ Kafka producer disconnected');
     } catch (error) {
-      this.logger.error('Error disconnecting Kafka producer', error);
+      Logger.error('Error disconnecting Kafka producer', error);
     }
   }
 
@@ -65,9 +64,9 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
         ],
       });
 
-      this.logger.log(`📤 Message sent to topic '${topic}'`);
+      Logger.log(`📤 Message sent to topic '${topic}'`);
     } catch (error) {
-      this.logger.error(`Failed to send message to topic '${topic}'`, error);
+      Logger.error(`Failed to send message to topic '${topic}'`, error);
       throw error;
     }
   }

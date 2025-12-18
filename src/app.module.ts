@@ -10,6 +10,7 @@ import { NoteModule } from './modules/note/note.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/users/user.module';
 import { KafkaModule } from './infrastructure/kafka/kafka.module';
+import { PaymentModule } from './modules/payment/payment.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { KafkaModule } from './infrastructure/kafka/kafka.module';
     AuthModule,
     NoteModule,
     UserModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
