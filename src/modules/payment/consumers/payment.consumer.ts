@@ -50,7 +50,7 @@ export class PaymentConsumerService implements OnModuleInit, OnModuleDestroy {
         }: EachMessagePayload) => {
           try {
             if (!message.value) {
-              Logger.warn('⚠️ Message value is null or undefined');
+              Logger.warn('Message value is null or undefined');
               return;
             }
 
